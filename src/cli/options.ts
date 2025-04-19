@@ -38,7 +38,7 @@ export function createProgram(): Command {
     .description('Transpile .javats files to TypeScript or JavaScript')
     .argument('<files...>', 'Files or patterns to build')
     .requiredOption('-o, --out-dir <dir>', 'Output directory for transpiled files')
-    .option('--emit-js', 'Emit TypeScript files in addition to JavaScript')
+    .option('--emit-ts', 'Emit TypeScript files in addition to JavaScript')
     .action(async (files: string[], options: BuildOptions) => {
       const module = await import('./commands/build.js');
       module.execute(files, options);

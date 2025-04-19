@@ -12,6 +12,7 @@ import { ProjectMainMethodRule } from '../../rules/project-main-method.js';
 import { MainModifierRule } from '../../rules/main-modifier-rule.js';
 import { RequireModifiersRule } from '../../rules/require-modifiers-rule.js';
 import { ExplicitTypingRule } from '../../rules/explicit-typing-rule.js';
+import { InterfaceImplementationRule } from '../../rules/interface-implementation-rule.js';
 
 import { CliOutput } from '../output.js';
 
@@ -36,6 +37,7 @@ export async function execute(
     validator.addRules([
       new NoProceduralCodeRule(),  // file
       new RequireTypeRule(),       // file
+      new InterfaceImplementationRule(), // file
       new ProjectMainMethodRule(), // project
       new MainModifierRule(),      // file
       new RequireModifiersRule(),  // file
