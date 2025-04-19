@@ -5,11 +5,11 @@ import { CheckOptions } from '../options.js';
 import { JavatsParser } from '../../core/parser.js';
 import { Validator } from '../../core/validator.js';
 import { NoProceduralCodeRule } from '../../rules/no-procedural-code.js';
-import { RequireClassRule } from '../../rules/require-class.js';
-import { MainMethodRule } from '../../rules/main-method-rule.js';
 import { MainModifierRule } from '../../rules/main-modifier-rule.js';
 import { RequireModifiersRule } from '../../rules/require-modifiers-rule.js';
 import { ExplicitTypingRule } from '../../rules/explicit-typing-rule.js';
+import { RequireTypeRule } from '../../rules/require-type.js';
+import { ProjectMainMethodRule } from '../../rules/project-main-method.js';
 import { CliOutput } from '../output.js';
 
 export async function execute(patterns: string[], options: CheckOptions): Promise<void> {
@@ -28,12 +28,12 @@ export async function execute(patterns: string[], options: CheckOptions): Promis
 
     // Add all rules
     validator.addRules([
-      new NoProceduralCodeRule(),
-      new RequireClassRule(),
-      new MainMethodRule(),
-      new MainModifierRule(),
-      new RequireModifiersRule(),
-      new ExplicitTypingRule()
+      new NoProceduralCodeRule(),  // file
+      new RequireTypeRule(),       // file
+      new ProjectMainMethodRule(), // project
+      new MainModifierRule(),      // file
+      new RequireModifiersRule(),  // file
+      new ExplicitTypingRule(),    // file
     ]);
 
     // Parse and validate all files
