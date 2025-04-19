@@ -5,7 +5,7 @@ interface TransformOptions {
     enforceMain: boolean;
     requireModifiers: boolean;
     noProceduralCode: boolean;
-  }
+}
 
 /**
  * Transforms JavaTS source code to JavaScript, enforcing Java-like OOP rules
@@ -75,10 +75,39 @@ export class JavatsToJsTransformer {
      * @returns The path to the written JavaScript file
      */
     async transformFile(sourceFile: SourceFile, outputDir: string, writer: any): Promise<string> {
-        const jsCode = await this.transform(sourceFile); 
+        const jsCode = await this.transform(sourceFile);
         const outputFilePath = writer.getOutputFilePath(sourceFile.getFilePath(), outputDir, '.js');
 
         writer.writeFile(outputFilePath, jsCode);
+        const className = this.detectMainClass(sourceFile);
+        if (className) {
+            const { appendMainRunner } = await import('./utils/append-main-runner.js');
+            appendMainRunner(outputFilePath, className);
+        }
+
         return outputFilePath;
+    }
+
+    /**
+     * Detects the main class in a source file
+     * 
+     * @param sourceFile The source file to check
+     * @returns The name of the main class, or null if not found
+     */
+    private detectMainClass(sourceFile: SourceFile): string | null {
+        const classes = sourceFile.getClasses();
+        for (const cls of classes) {
+            const methods = cls.getStaticMethods();
+            const mainMethod = methods.find(method =>
+                method.getName() === 'main' &&
+                method.hasModifier('public') &&
+                method.hasModifier('static')
+            );
+
+            if (mainMethod) {
+                return cls.getName() || null;
+            }
+        }
+        return null;
     }
 }

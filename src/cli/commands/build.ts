@@ -75,13 +75,14 @@ export async function execute(patterns: string[], options: BuildOptions): Promis
 
     for (const sourceFile of validFiles) {
       try {
-        const outputTsPath = transformer.transformFile(sourceFile, options.outDir);
-        builtFiles.push(outputTsPath);
+        // Compile to JavaScript first (default behavior)
+        const outputJsPath = await transformer.compileToJs(sourceFile, options.outDir);
+        builtFiles.push(outputJsPath);
 
-        // Compile to JS if requested
-        if (options.emitJs) {
-          const outputJsPath = await transformer.compileToJs(sourceFile, options.outDir);
-          builtFiles.push(outputJsPath);
+        // If --emit-ts is specified, also generate .ts
+        if (options.emitTs) {
+          const outputTsPath = transformer.transformFile(sourceFile, options.outDir);
+          builtFiles.push(outputTsPath);
         }
       } catch (error) {
         if (error instanceof Error) {
