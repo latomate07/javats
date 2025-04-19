@@ -56,7 +56,11 @@ export async function execute(patterns: string[], options: BuildOptions): Promis
         const errors = validator.validate(sourceFile);
 
         if (errors.length > 0) {
-          console.error(`Validation failed for ${file}, skipping`);
+          console.error(`Validation errors in ${file}:`);
+          for (const error of errors) {
+            console.error(`  ${error.toString()}`);
+          }
+          console.error(`Skipping ${file} due to validation errors.`);
           continue;
         }
 
