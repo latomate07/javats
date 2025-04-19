@@ -1,0 +1,31 @@
+public interface Runnable {
+  run(): void;
+}
+
+public abstract class BaseRunner implements Runnable {
+  protected name: string;
+  
+  public constructor(name: string) {
+    this.name = name;
+  }
+  
+  public abstract run(): void;
+}
+
+public class Runner extends BaseRunner {
+  private iterations: number;
+  
+  public constructor(name: string, iterations: number) {
+    super(name);
+    this.iterations = iterations;
+  }
+  
+  public run(): void {
+    console.log(`${this.name} running ${this.iterations} times`);
+  }
+  
+  public static main(args: string[]): void {
+    const runner = new Runner("TestRunner", 3);
+    runner.run();
+  }
+}

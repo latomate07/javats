@@ -1,0 +1,15 @@
+public class MissingModifiers {
+  name: string; // Lacks access modifier (public/private/protected), defaults to public in TypeScript
+  
+  constructor(name: string) { // Lacks access modifier, implicitly public
+    this.name = name;
+  }
+  
+  static main(args: string[]): void { // Lacks public modifier, but static methods are accessible
+    console.log("Hello, world!");
+  }
+  
+  sayHello(): void { // Lacks access modifier, implicitly public
+    console.log(`Hello, ${this.name}!`);
+  }
+}

@@ -1,0 +1,13 @@
+public class NoMain {
+  private name: string; // Private instance variable for storing name
+  
+  public constructor(name: string) { // Public constructor to initialize the class
+    this.name = name;
+  }
+  
+  public sayHello(): void { // Public method to output a greeting
+    console.log(`Hello, ${this.name}!`);
+  }
+  
+  // No main() method defined, typically needed for program entry point
+}

@@ -1,0 +1,13 @@
+public class Main {
+  private static count: number = 0;
+  
+  public static main(args: string[]): void {
+    console.log("Hello from JavaTS!");
+    Main.incrementCount();
+    console.log(`Count is now: ${Main.count}`);
+  }
+  
+  private static incrementCount(): void {
+    this.count++;
+  }
+}

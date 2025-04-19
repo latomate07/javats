@@ -1,0 +1,12 @@
+public class ImplicitTypes {
+  private name = "Default"; // Implicitly typed as string
+  
+  public static main(args: string[]): void {
+    const count = 0; // Implicitly typed as number for local constant
+    console.log(`Count: ${count}`);
+  }
+  
+  public setName(name) { // Parameter with implicit any type
+    this.name = name;
+  }
+}

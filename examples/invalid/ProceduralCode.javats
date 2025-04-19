@@ -1,0 +1,12 @@
+function doSomething(): void { 
+  // Standalone function, not encapsulated in a class
+  console.log("Procedural code is not allowed");
+}
+
+const x = 10; // Global constant, implicitly typed as number
+
+public class TooLate {
+  public static main(args: string[]): void { // Public static entry point method
+    console.log("This class is valid, but the file contains procedural code");
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "javats",
+  "version": "0.1.0",
+  "description": "A TypeScript preprocessor that enforces Java-like OOP principles (experimental)",
+  "main": "dist/index.js",
+  "bin": {
+    "javats": "dist/cli/main.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "dev": "tsc --watch",
+    "start": "node dist/cli/main.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "typescript",
+    "java",
+    "transpiler",
+    "oop",
+    "compiler"
+  ],
+  "author": "Tahirou <lmtahirou@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/latomate07/javats.git"
+  },
+  "bugs": {
+    "url": "https://github.com/latomate07/javats/issues"
+  },
+  "homepage": "https://github.com/latomate07/javats#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "tag": "beta"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.30",
+    "rimraf": "^5.0.10",
+    "ts-morph": "^22.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^1.6.1"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0"
+  }
+}
