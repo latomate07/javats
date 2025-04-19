@@ -1,5 +1,5 @@
 import { SourceFile } from 'ts-morph';
-import { BaseRule } from '../rules/base-rule';
+import { BaseRule } from '../rules/base-rule.js';
 
 export class ValidationError {
     constructor(

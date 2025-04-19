@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { ValidationError } from '../core/validator';
+import { ValidationError } from '../core/validator.js';
 
 export class CliOutput {
   static printTitle(title: string): void {

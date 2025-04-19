@@ -1,8 +1,7 @@
-// src/index.ts
-import { JavatsParser } from './core/parser';
-import { Validator, ValidationError } from './core/validator';
-import { JavatsTransformer } from './core/transformer';
-import * as Rules from './rules';
+import { JavatsParser } from './core/parser.js';
+import { Validator, ValidationError } from './core/validator.js';
+import { JavatsTransformer } from './core/transformer.js';
+import * as Rules from './rules/index.js';
 
 // Export public API
 export {

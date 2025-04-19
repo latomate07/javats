@@ -1,10 +1,10 @@
-import { BaseRule } from './base-rule';
-import { NoProceduralCodeRule } from './no-procedural-code';
-import { RequireClassRule } from './require-class';
-import { MainMethodRule } from './main-method-rule';
-import { MainModifierRule } from './main-modifier-rule';
-import { RequireModifiersRule } from './require-modifiers-rule';
-import { ExplicitTypingRule } from './explicit-typing-rule';
+import { BaseRule } from './base-rule.js';
+import { NoProceduralCodeRule } from './no-procedural-code.js';
+import { RequireClassRule } from './require-class.js';
+import { MainMethodRule } from './main-method-rule.js';
+import { MainModifierRule } from './main-modifier-rule.js';
+import { RequireModifiersRule } from './require-modifiers-rule.js';
+import { ExplicitTypingRule } from './explicit-typing-rule.js';
 
 export {
   BaseRule,

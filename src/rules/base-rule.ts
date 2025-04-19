@@ -1,5 +1,5 @@
 import { SourceFile, Node } from 'ts-morph';
-import { ValidationError } from '../core/validator';
+import { ValidationError } from '../core/validator.js';
 
 export abstract class BaseRule {
   abstract readonly name: string;

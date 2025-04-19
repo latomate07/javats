@@ -1,8 +1,8 @@
 import * as path from 'path';
 import { SourceFile, Project, ts } from 'ts-morph';
-import { JavatsToTsTransformer } from '../transpiler/javats-to-ts';
-import { JavatsToJsTransformer } from '../transpiler/javats-to-js';
-import { OutputWriter } from '../transpiler/output-writer';
+import { JavatsToTsTransformer } from '../transpiler/javats-to-ts.js';
+import { JavatsToJsTransformer } from '../transpiler/javats-to-js.js';
+import { OutputWriter } from '../transpiler/output-writer.js';
 
 /**
  * Main transformer class for converting JavaTS to TypeScript and JavaScript

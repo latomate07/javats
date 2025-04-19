@@ -1,9 +1,12 @@
-// Exemple pour src/cli/commands/init.ts (fichier exemple à créer)
 import * as fs from 'fs';
 import * as path from 'path';
-import { InitOptions } from '../options';
-import { CliOutput } from '../output';
+import { InitOptions } from '../options.js';
+import { CliOutput } from '../output.js';
+import { fileURLToPath } from 'url';
 import chalk from 'chalk';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export async function execute(options: InitOptions): Promise<void> {
     try {

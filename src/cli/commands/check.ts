@@ -1,16 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as glob from 'glob';
-import { CheckOptions } from '../options';
-import { JavatsParser } from '../../core/parser';
-import { Validator } from '../../core/validator';
-import { NoProceduralCodeRule } from '../../rules/no-procedural-code';
-import { RequireClassRule } from '../../rules/require-class';
-import { MainMethodRule } from '../../rules/main-method-rule';
-import { MainModifierRule } from '../../rules/main-modifier-rule';
-import { RequireModifiersRule } from '../../rules/require-modifiers-rule';
-import { ExplicitTypingRule } from '../../rules/explicit-typing-rule';
-import { CliOutput } from '../output';
+import { CheckOptions } from '../options.js';
+import { JavatsParser } from '../../core/parser.js';
+import { Validator } from '../../core/validator.js';
+import { NoProceduralCodeRule } from '../../rules/no-procedural-code.js';
+import { RequireClassRule } from '../../rules/require-class.js';
+import { MainMethodRule } from '../../rules/main-method-rule.js';
+import { MainModifierRule } from '../../rules/main-modifier-rule.js';
+import { RequireModifiersRule } from '../../rules/require-modifiers-rule.js';
+import { ExplicitTypingRule } from '../../rules/explicit-typing-rule.js';
+import { CliOutput } from '../output.js';
 
 export async function execute(patterns: string[], options: CheckOptions): Promise<void> {
   try {

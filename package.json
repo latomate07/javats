@@ -2,12 +2,13 @@
   "name": "javats",
   "version": "0.1.0",
   "description": "A TypeScript preprocessor that enforces Java-like OOP principles (experimental)",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "javats": "dist/cli/main.js"
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && chmod +x dist/cli/main.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

@@ -1,4 +1,4 @@
-import { Command, Option } from 'commander';
+import { Command } from 'commander';
 
 export interface CheckOptions {
   fix?: boolean;
@@ -20,17 +20,18 @@ export function createProgram(): Command {
     .name('javats')
     .description('A TypeScript preprocessor that enforces Java-like OOP principles')
     .version('0.1.0');
-    
+
   // Check command
   program
     .command('check')
     .description('Check .javats files for compliance with Java-like OOP rules')
     .argument('<files...>', 'Files or patterns to check')
     .option('--fix', 'Automatically fix issues where possible')
-    .action((files: string[], options: CheckOptions) => {
-      require('./commands/check').execute(files, options);
+    .action(async (files: string[], options: CheckOptions) => {
+      const module = await import('./commands/check.js');
+      module.execute(files, options);
     });
-    
+
   // Build command
   program
     .command('build')
@@ -38,18 +39,20 @@ export function createProgram(): Command {
     .argument('<files...>', 'Files or patterns to build')
     .requiredOption('-o, --out-dir <dir>', 'Output directory for transpiled files')
     .option('--emit-js', 'Emit JavaScript files in addition to TypeScript')
-    .action((files: string[], options: BuildOptions) => {
-      require('./commands/build').execute(files, options);
+    .action(async (files: string[], options: BuildOptions) => {
+      const module = await import('./commands/build.js');
+      module.execute(files, options);
     });
-    
+
   // Init command
   program
     .command('init')
     .description('Initialize a new Javats project')
     .option('-n, --name <name>', 'Project name')
-    .action((options: InitOptions) => {
-      require('./commands/init').execute(options);
+    .action(async (options: InitOptions) => {
+      const module = await import('./commands/init.js');
+      module.execute(options);
     });
-    
+
   return program;
 }

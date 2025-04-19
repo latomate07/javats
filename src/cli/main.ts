@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { createProgram } from './options';
+import { createProgram } from './options.js';
 
 // Create and run the CLI program
 const program = createProgram();

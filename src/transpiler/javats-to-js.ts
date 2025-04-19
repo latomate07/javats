@@ -1,5 +1,5 @@
 import { SourceFile, Project, ts } from 'ts-morph';
-import { JavatsToTsTransformer } from './javats-to-ts';
+import { JavatsToTsTransformer } from './javats-to-ts.js';
 
 interface TransformOptions {
     enforceMain: boolean;

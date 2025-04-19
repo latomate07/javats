@@ -1,6 +1,6 @@
 import { SourceFile } from 'ts-morph';
-import { BaseRule } from './base-rule';
-import { ValidationError } from '../core/validator';
+import { BaseRule } from './base-rule.js';
+import { ValidationError } from '../core/validator.js';
 
 export class MainMethodRule extends BaseRule {
   readonly name = 'MainMethod';
