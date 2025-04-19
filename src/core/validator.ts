@@ -1,54 +1,75 @@
 import { SourceFile } from 'ts-morph';
 import { BaseRule } from '../rules/base-rule.js';
 
-export class ValidationError {
-    constructor(
-        public readonly message: string,
-        public readonly line: number,
-        public readonly column: number,
-        public readonly ruleName: string,
-        public readonly fileName: string
-    ) { }
+export interface ProjectRule {
+  readonly name: string;
+  validateProject(sourceFiles: SourceFile[]): ValidationError[];
+}
 
-    toString(): string {
-        return `[${this.ruleName}] ${this.fileName}:${this.line}:${this.column} - ${this.message}`;
-    }
+export class ValidationError {
+  constructor(
+    public readonly message: string,
+    public readonly line: number,
+    public readonly column: number,
+    public readonly ruleName: string,
+    public readonly fileName: string
+  ) {}
+
+  toString(): string {
+    return `[${this.ruleName}] ${this.fileName}:${this.line}:${this.column} - ${this.message}`;
+  }
 }
 
 export class Validator {
-    private rules: BaseRule[] = [];
+  private fileRules: BaseRule[] = [];
+  private projectRules: ProjectRule[] = [];
 
-    constructor() { }
+  /* ---------- rule registration ---------- */
 
-    addRule(rule: BaseRule): void {
-        this.rules.push(rule);
+  addRule(rule: BaseRule | ProjectRule): void {
+    this.isProjectRule(rule)
+      ? this.projectRules.push(rule)
+      : this.fileRules.push(rule as BaseRule);
+  }
+
+  addRules(rules: (BaseRule | ProjectRule)[]): void {
+    for (const r of rules) this.addRule(r);
+  }
+
+  /* ---------- file validation ---------- */
+
+  /** Back‑compat alias */
+  validate(sourceFile: SourceFile): ValidationError[] {
+    return this.validateFile(sourceFile);
+  }
+
+  validateFile(sourceFile: SourceFile): ValidationError[] {
+    const errors: ValidationError[] = [];
+    for (const rule of this.fileRules) errors.push(...rule.validate(sourceFile));
+    return errors;
+  }
+
+  validateFiles(sourceFiles: SourceFile[]): Map<string, ValidationError[]> {
+    const map = new Map<string, ValidationError[]>();
+    for (const sf of sourceFiles) {
+      const errs = this.validateFile(sf);
+      if (errs.length) map.set(sf.getFilePath(), errs);
     }
+    return map;
+  }
 
-    addRules(rules: BaseRule[]): void {
-        this.rules.push(...rules);
-    }
+  /* ---------- project validation ---------- */
 
-    validate(sourceFile: SourceFile): ValidationError[] {
-        const errors: ValidationError[] = [];
+  validateProject(sourceFiles: SourceFile[]): ValidationError[] {
+    const errors: ValidationError[] = [];
+    for (const rule of this.projectRules)
+      errors.push(...rule.validateProject(sourceFiles));
+    return errors;
+  }
 
-        for (const rule of this.rules) {
-            const ruleErrors = rule.validate(sourceFile);
-            errors.push(...ruleErrors);
-        }
+  /* ---------- helpers ---------- */
 
-        return errors;
-    }
-
-    validateFiles(sourceFiles: SourceFile[]): Map<string, ValidationError[]> {
-        const errorsMap = new Map<string, ValidationError[]>();
-
-        for (const sourceFile of sourceFiles) {
-            const errors = this.validate(sourceFile);
-            if (errors.length > 0) {
-                errorsMap.set(sourceFile.getFilePath(), errors);
-            }
-        }
-
-        return errorsMap;
-    }
+  private isProjectRule(rule: any): rule is ProjectRule {
+    return typeof rule?.validateProject === 'function';
+  }
 }

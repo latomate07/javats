@@ -36,7 +36,6 @@ export class JavatsToTsTransformer {
     // Validate and transform the source file
     this.ensureNoProceduralCode(sourceFile, opts);
     this.ensureModifiers(sourceFile, opts);
-    this.ensureMainMethod(sourceFile, opts);
 
     // For now, return the source text (extend with actual transformations later)
     return sourceFile.getText();
@@ -89,28 +88,6 @@ export class JavatsToTsTransformer {
         }
         // Skip non-modifierable members like ClassStaticBlockDeclaration
       }
-    }
-  }
-
-  /**
-   * Ensures a main method exists in at least one class if required
-   * @param sourceFile The source file to check
-   * @param options Transformation options
-   */
-  private ensureMainMethod(sourceFile: SourceFile, options: TransformOptions): void {
-    if (!options.enforceMain) return;
-
-    const classes = sourceFile.getClasses();
-    const hasMain = classes.some(cls =>
-      cls.getStaticMethods().some(method =>
-        method.getName() === 'main' &&
-        method.hasModifier(SyntaxKind.PublicKeyword) &&
-        method.hasModifier(SyntaxKind.StaticKeyword)
-      )
-    );
-
-    if (!hasMain) {
-      throw new Error('No public static main method found in any class');
     }
   }
 }

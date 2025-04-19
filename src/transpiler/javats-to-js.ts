@@ -96,6 +96,11 @@ export class JavatsToJsTransformer {
      */
     private detectMainClass(sourceFile: SourceFile): string | null {
         const classes = sourceFile.getClasses();
+        // Skip validation if the file has no classes (e.g., contains only interfaces)
+        if (classes.length === 0) {
+            return null;
+        }
+
         for (const cls of classes) {
             const methods = cls.getStaticMethods();
             const mainMethod = methods.find(method =>
