@@ -13,6 +13,8 @@ import { MainModifierRule } from '../../rules/main-modifier-rule.js';
 import { RequireModifiersRule } from '../../rules/require-modifiers-rule.js';
 import { ExplicitTypingRule } from '../../rules/explicit-typing-rule.js';
 import { InterfaceImplementationRule } from '../../rules/interface-implementation-rule.js';
+import { SinglePublicClassRule } from '../../rules/single-public-class-rule.js';
+import { NamingConventionRule } from '../../rules/naming-convention-rule.js';
 
 import { CliOutput } from '../output.js';
 
@@ -39,6 +41,8 @@ export async function execute(
       new RequireTypeRule(),       // file
       new InterfaceImplementationRule(), // file
       new ProjectMainMethodRule(), // project
+      new SinglePublicClassRule(), // file
+      new NamingConventionRule(), // file
       new MainModifierRule(),      // file
       new RequireModifiersRule(),  // file
       new ExplicitTypingRule(),    // file

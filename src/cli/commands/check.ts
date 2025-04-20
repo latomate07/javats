@@ -11,6 +11,8 @@ import { ExplicitTypingRule } from '../../rules/explicit-typing-rule.js';
 import { RequireTypeRule } from '../../rules/require-type.js';
 import { InterfaceImplementationRule } from '../../rules/interface-implementation-rule.js';
 import { ProjectMainMethodRule } from '../../rules/project-main-method.js';
+import { SinglePublicClassRule } from '../../rules/single-public-class-rule.js';
+import { NamingConventionRule } from '../../rules/naming-convention-rule.js';
 import { CliOutput } from '../output.js';
 
 export async function execute(patterns: string[], options: CheckOptions): Promise<void> {
@@ -33,6 +35,8 @@ export async function execute(patterns: string[], options: CheckOptions): Promis
       new RequireTypeRule(),       // file
       new InterfaceImplementationRule(), // file
       new ProjectMainMethodRule(), // project
+      new SinglePublicClassRule(), // file
+      new NamingConventionRule(), // file
       new MainModifierRule(),      // file
       new RequireModifiersRule(),  // file
       new ExplicitTypingRule(),    // file
